@@ -34,12 +34,12 @@ function Main(props) {
                     <div className="profile__info">
                         <div className="profile__personal">
                             <h1 className="profile__name">{userName}</h1>
-                            <button aria-label="Open editForm" className="profile__edit-button" type="button" onClick={props.onEditProfile}/>
+                            <button aria-label="Open editForm" className="profile__edit-button" type="button" onClick={props.onEditProfile} />
                         </div>
                         <p className="profile__job">{userDescription}</p>
                     </div>
                 </div>
-                <button aria-label="Open addForm" type="button" className="profile__add-button" onClick={props.onAddPlace}/>
+                <button aria-label="Open addForm" type="button" className="profile__add-button" onClick={props.onAddPlace} />
             </section>
 
             <section className="elements">
