@@ -1,6 +1,32 @@
+import { useContext, useState, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function EditProfilePopup(props) {
+    const currentUser = useContext(CurrentUserContext);
+    const [name, setName] = useState(currentUser.name);
+    const [description, setDescription] = useState(currentUser.about);
+
+    useEffect(() => {
+        setName(currentUser.name);
+        setDescription(currentUser.about);
+    }, [currentUser, props.isOpen]);
+
+    function handleNameChange(e) {
+        setName(e.target.value);
+    }
+
+    function handleDescriptionChange(e) {
+        setDescription(e.target.value);
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        props.onUpdateUser({
+            name,
+            about: description,
+        });
+    }
 
     return (
         <PopupWithForm
@@ -8,15 +34,19 @@ function EditProfilePopup(props) {
             title="Редактировать профиль"
             isOpen={props.isOpen}
             onClose={props.onClose}
+            onSubmit={handleSubmit}
         >
             <input
                 id="editNameInput"
                 name="name"
                 className="popup__input popup__name"
                 type="text"
-                value="Жак-Ив Кусто"
+                minLength="2"
+                maxLength="40"
                 required
-                readOnly
+                placeholder='Имя'
+                onChange={handleNameChange}
+                value={name || ''}
             />
             <span className="editNameInput-error popup__input-error" />
             <input
@@ -24,9 +54,12 @@ function EditProfilePopup(props) {
                 name="about"
                 className="popup__input popup__job"
                 type="text"
-                value="Исследователь океана"
+                minLength="2"
+                maxLength="200"
+                placeholder='Описание'
                 required
-                readOnly
+                onChange={handleDescriptionChange}
+                value={description || ''}
             />
             <span className="editJobInput-error popup__input-error" />
         </PopupWithForm>

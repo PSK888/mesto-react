@@ -51,8 +51,8 @@ class Api {
             .then(this._getResponseData)
     };
     // Удаление карточки
-    deleteIdCard(_id) {
-        return fetch(`${this._baseUrl}/cards/${_id}`, {
+    deleteIdCard(data) {
+        return fetch(`${this._baseUrl}/cards/${data._id}`, {
             method: 'DELETE',
             headers: this._headers
         })
@@ -60,7 +60,7 @@ class Api {
     };
     // Снятие лайка
     dislike(data) {
-        return fetch(`${this._baseUrl}/cards/${data._id}/likes`, {
+        return fetch(`${this._baseUrl}/cards/${data}/likes`, {
             method: "DELETE",
             headers: this._headers
         })
@@ -68,12 +68,21 @@ class Api {
     };
     // Постановка  лайка
     putLike(data) {
-        return fetch(`${this._baseUrl}/cards/${data._id}/likes`, {
+        return fetch(`${this._baseUrl}/cards/${data}/likes`, {
             method: 'PUT',
             headers: this._headers
         })
             .then(this._getResponseData)
     };
+
+    changeLikeCardStatus(data, isLiked) {
+        if (!isLiked) {
+            return this.dislike(data);
+        } else {
+            return this.putLike(data);
+        }
+    }
+
     // Обновление аватара пользователя
     setUserAvatar(data) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
