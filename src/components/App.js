@@ -1,6 +1,6 @@
 import api from "../utils/Api.js";
-import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import { useEffect, useState } from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import Header from "./Header";
 import Footer from "./Footer";
 import Main from "./Main";
@@ -54,7 +54,7 @@ function App() {
 function handleCardDelete(card) {
   api.deleteIdCard(card)
   .then(() => {
-      setCards(cards.filter((e) => e !== card));
+      setCards(cards.filter((c) => c._id !== card._id));
   })
   .catch((err) => {
       console.log(err);
@@ -83,8 +83,8 @@ function handleUpdateAvatar(data) {
   })
 }
 
-function handleAddPlaceSubmit(inputValues) {
-  api.createNewCard(inputValues)
+function handleAddPlaceSubmit(data) {
+  api.createNewCard(data)
   .then((newCard) => {
       setCards([newCard, ...cards]);
       closeAllPopups();

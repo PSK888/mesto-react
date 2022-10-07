@@ -24,11 +24,11 @@ function Card(props) {
     return (
         <div className="element">
             <div className="element__image" onClick={handleClick} style={{ backgroundImage: `url(${props.card.link})` }} />
-            <button className={cardDeleteButtonClassName} onClick={handleDeleteClick} type="button" />
+            <button className={cardDeleteButtonClassName} onClick={handleDeleteClick} type="button"/>
             <div className="element__footer">
                 <h3 className="element__text">{props.card.name}</h3>
                 <div className="element__column">
-                    <button className={cardLikeButtonClassName} onClick={handleLikeClick} type="button" />
+                    <button className={cardLikeButtonClassName} onClick={handleLikeClick} type="button"/>
                     <p className="element__counter">{props.card.likes.length}</p>
                 </div>
             </div>
